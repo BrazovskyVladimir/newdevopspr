@@ -1,1 +1,3 @@
+uname -a
 Linux brazovsky-virtual-machine 5.15.0-53-generic #59-Ubuntu SMP Mon Oct 17 18:53:30 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
+Linux centosslave 5.14.0-197.el9.x86_64 #1 SMP PREEMPT_DYNAMIC Wed Nov 16 17:08:31 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
