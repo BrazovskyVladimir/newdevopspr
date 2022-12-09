@@ -1,0 +1,90 @@
+Module                  Size  Used by
+vboxnetadp             28672  0
+vboxnetflt             28672  0
+vboxdrv               573440  2 vboxnetadp,vboxnetflt
+tls                   114688  0
+veth                   32768  0
+xt_conntrack           16384  1
+nft_chain_nat          16384  3
+xt_MASQUERADE          20480  1
+nf_nat                 49152  2 nft_chain_nat,xt_MASQUERADE
+nf_conntrack_netlink    49152  0
+nf_conntrack          172032  4 xt_conntrack,nf_nat,nf_conntrack_netlink,xt_MASQUERADE
+nf_defrag_ipv6         24576  1 nf_conntrack
+nf_defrag_ipv4         16384  1 nf_conntrack
+xfrm_user              40960  1
+xfrm_algo              16384  1 xfrm_user
+nft_counter            16384  15
+xt_addrtype            16384  2
+nft_compat             20480  4
+nf_tables             249856  43 nft_compat,nft_counter,nft_chain_nat
+libcrc32c              16384  3 nf_conntrack,nf_nat,nf_tables
+nfnetlink              20480  4 nft_compat,nf_conntrack_netlink,nf_tables
+br_netfilter           32768  0
+bridge                307200  1 br_netfilter
+stp                    16384  1 bridge
+llc                    16384  2 bridge,stp
+overlay               151552  0
+vsock_loopback         16384  0
+vmw_vsock_virtio_transport_common    40960  1 vsock_loopback
+vmw_vsock_vmci_transport    32768  2
+vsock                  49152  7 vmw_vsock_virtio_transport_common,vsock_loopback,vmw_vsock_vmci_transport
+binfmt_misc            24576  1
+intel_rapl_msr         20480  0
+intel_rapl_common      40960  1 intel_rapl_msr
+isst_if_mbox_msr       16384  0
+isst_if_common         24576  1 isst_if_mbox_msr
+nls_iso8859_1          16384  1
+nfit                   81920  0
+kvm_intel             368640  0
+kvm                  1028096  1 kvm_intel
+crct10dif_pclmul       16384  1
+ghash_clmulni_intel    16384  0
+aesni_intel           376832  0
+vmw_balloon            24576  0
+crypto_simd            16384  1 aesni_intel
+cryptd                 24576  2 crypto_simd,ghash_clmulni_intel
+rapl                   20480  0
+joydev                 32768  0
+input_leds             16384  0
+serio_raw              20480  0
+mac_hid                16384  0
+vmw_vmci               90112  2 vmw_balloon,vmw_vsock_vmci_transport
+sch_fq_codel           20480  7
+vmwgfx                368640  4
+ttm                    86016  1 vmwgfx
+drm_kms_helper        311296  1 vmwgfx
+cec                    61440  1 drm_kms_helper
+rc_core                65536  1 cec
+fb_sys_fops            16384  1 drm_kms_helper
+syscopyarea            16384  1 drm_kms_helper
+sysfillrect            20480  1 drm_kms_helper
+sysimgblt              16384  1 drm_kms_helper
+msr                    16384  0
+parport_pc             49152  0
+ppdev                  24576  0
+ramoops                32768  0
+lp                     28672  0
+reed_solomon           28672  1 ramoops
+pstore_blk             16384  0
+pstore_zone            32768  1 pstore_blk
+drm                   622592  7 vmwgfx,drm_kms_helper,ttm
+parport                69632  3 parport_pc,lp,ppdev
+efi_pstore             16384  0
+ip_tables              32768  0
+x_tables               53248  5 xt_conntrack,nft_compat,xt_addrtype,ip_tables,xt_MASQUERADE
+autofs4                49152  2
+hid_generic            16384  0
+ahci                   45056  0
+libahci                45056  1 ahci
+usbhid                 65536  0
+hid                   151552  2 usbhid,hid_generic
+mptspi                 24576  2
+mptscsih               49152  1 mptspi
+crc32_pclmul           16384  0
+psmouse               176128  0
+mptbase               106496  2 mptspi,mptscsih
+vmxnet3                69632  0
+scsi_transport_spi     32768  1 mptspi
+i2c_piix4              32768  0
+pata_acpi              16384  0
