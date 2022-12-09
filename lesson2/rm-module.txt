@@ -1,0 +1,8 @@
+root@brazovsky-virtual-machine:/lib/modules/5.15.0-56-generic# lsmod | grep tls
+tls                   114688  0
+root@brazovsky-virtual-machine:/lib/modules/5.15.0-56-generic# rmmod tls
+root@brazovsky-virtual-machine:/lib/modules/5.15.0-56-generic# lsmod | grep tls
+root@brazovsky-virtual-machine:/lib/modules/5.15.0-56-generic# modprobe tls
+root@brazovsky-virtual-machine:/lib/modules/5.15.0-56-generic# lsmod | grep tls
+tls                   114688  0
+root@brazovsky-virtual-machine:/lib/modules/5.15.0-56-generic# 

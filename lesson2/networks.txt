@@ -64,3 +64,32 @@ systemctl status sshd
         CPU: 289ms
      CGroup: /system.slice/sshd.service
              └─994 "sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups"
+
+nmcli connection add con-name "static" ifname ens224 autoconnect no type ethernet ip4 192.168.218.230
+
+ens192: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.218.70  netmask 255.255.255.0  broadcast 192.168.218.255
+        inet6 fe80::20c:29ff:fe87:6450  prefixlen 64  scopeid 0x20<link>
+        ether 00:0c:29:87:64:50  txqueuelen 1000  (Ethernet)
+        RX packets 3900  bytes 333328 (325.5 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 496  bytes 76707 (74.9 KiB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+ens224: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 192.168.218.230  netmask 255.255.255.255  broadcast 0.0.0.0
+        inet6 fe80::8603:8c3:65b6:7bd5  prefixlen 64  scopeid 0x20<link>
+        ether 00:0c:29:87:64:5a  txqueuelen 1000  (Ethernet)
+        RX packets 3250  bytes 275098 (268.6 KiB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 9  bytes 634 (634.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
