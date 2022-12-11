@@ -1,0 +1,35 @@
+pvcreate /dev/sdb1 /dev/sdb2
+vgcreate vg0 /dev/sdb1 /dev/sdb2
+lvcreate -n mylvm -L 10G vg0
+mkfs.ext4 /dev/vg0/mylvm
+mount /dev/vg0/mylvm /test1
+echo "/dev/vg0/mylvm /test1     ext4     defaults 0 0" >> /etc/fstab
+pvcreate /dev/sdb6 /dev/sdb5
+vgcreate vg1 /dev/sdb6 /dev/sdb5
+lvcreate -n mylvmhome -L 4G vg1
+mkfs.ext4 /dev/vg1/mylvmhome
+cd /home
+rsync -a ./ /test1
+mount /dev/vg1/mylvmhome /home
+echo "/dev/vg1/mylvm /home     ext4     defaults 0 0" >> /etc/fstab
+cd /test1
+rsync -a ./ /home
+
+[root@localhost ~]# lsblk
+NAME              MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
+sda                 8:0    0   30G  0 disk 
+├─sda1              8:1    0   29G  0 part 
+│ ├─cs-root       253:0    0 26,9G  0 lvm  /
+│ └─cs-swap       253:1    0  2,1G  0 lvm  [SWAP]
+└─sda2              8:2    0    1G  0 part /boot
+sdb                 8:16   0   30G  0 disk 
+├─sdb1              8:17   0   10G  0 part 
+│ └─vg0-mylvm     253:3    0   10G  0 lvm  /test1
+├─sdb2              8:18   0   10G  0 part 
+│ └─vg0-mylvm     253:3    0   10G  0 lvm  /test1
+├─sdb3              8:19   0    1K  0 part 
+├─sdb5              8:21   0    4G  0 part 
+│ └─vg1-mylvmhome 253:2    0    4G  0 lvm  /home
+└─sdb6              8:22   0    4G  0 part 
+  └─vg1-mylvmhome 253:2    0    4G  0 lvm  /home
+sr0                11:0    1 1024M  0 rom 

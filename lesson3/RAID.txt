@@ -1,0 +1,33 @@
+yum install mdadm
+mdadm --zero-superblock --force /dev/sd{c,d,e,f} 
+mdadm --create --level=0 --raid-devices=2 /dev/md0 /dev/sd{c,d} --verbose
+mdadm --create --level=1 --raid-devices=2 /dev/md1 /dev/sd{e,f} --verbose
+mkfs.ext4 /dev/md0
+mkfs.ext4 /dev/md1
+mdadm --detail --scan > /etc/mdadm.conf
+mdadm /dev/md1 -f /dev/sdf
+mdadm /dev/md1 --remove /dev/sdf
+mdadm /dev/md1 --add /dev/sdf
+cat /proc/mdstat
+
+
+[root@localhost home]# cat /proc/mdstat
+Personalities : [raid0] [raid1] 
+md1 : active raid1 sdf[1] sde[0]
+      5242816 blocks [2/2] [UU]
+      [=========>...........]  resync = 48.7% (2555200/5242816) finish=1.7min speed=24806K/sec
+      
+md0 : active raid0 sdd[1] sdc[0]
+      10475520 blocks super 1.2 512k chunks
+      
+unused devices: <none>
+
+[root@localhost home]# cat /proc/mdstat
+Personalities : [raid0] [raid1] 
+md1 : active raid1 sdf[2](F) sde[0]
+      5242816 blocks [2/1] [U_]
+      
+md0 : active raid0 sdd[1] sdc[0]
+      10475520 blocks super 1.2 512k chunks
+      
+unused devices: <none>

@@ -1,0 +1,31 @@
+[root@localhost testgroupfolder]# useradd -m noroot -g users -G wheel
+[root@localhost testgroupfolder]# useradd -m noroot2 -g users
+[root@localhost testgroupfolder]# groupadd testgroup
+[root@localhost testgroupfolder]# usermod -aG testgroup noroot
+[root@localhost ~]# cd /test1
+[root@localhost test1]# ls
+[root@localhost test1]# mkdir testgroupfolder
+[root@localhost test1]# chgrp testgroup testgroupfolder/
+[root@localhost test1]# id noroot
+uid=1000(noroot) gid=100(users) групы=100(users),10(wheel),1000(testgroup)
+[root@localhost test1]# id noroot2
+uid=1001(noroot2) gid=1001(noroot2) групы=1001(noroot2)
+[root@localhost test1]# chmod g+rw testgroupfolder/
+[root@localhost test1]# su noroot
+bash-5.1$ ls
+testgroupfolder
+bash-5.1$ cd testgroupfolder/
+bash-5.1$ touch 123.txt
+bash-5.1$ exit
+exit
+[root@localhost test1]# ls
+testgroupfolder
+[root@localhost test1]# cd testgroupfolder/
+[root@localhost testgroupfolder]# ls
+123.txt
+[root@localhost testgroupfolder]# su noroot2
+[noroot2@localhost testgroupfolder]$ ls
+123.txt
+[noroot2@localhost testgroupfolder]$ rm 123.txt 
+rm: выдаліць абаронены ад запісу звычайны парожні файл '123.txt'? yes
+rm: немагчыма выдаліць '123.txt': бракуе правоў
