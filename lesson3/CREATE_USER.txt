@@ -1,7 +1,7 @@
-[root@localhost testgroupfolder]# useradd -m noroot -g users -G wheel
-[root@localhost testgroupfolder]# useradd -m noroot2 -g users
-[root@localhost testgroupfolder]# groupadd testgroup
-[root@localhost testgroupfolder]# usermod -aG testgroup noroot
+[root@localhost ~]# useradd -m noroot -g users -G wheel
+[root@localhost ~]# useradd -m noroot2 -g users
+[root@localhost ~]# groupadd testgroup
+[root@localhost ~]# usermod -aG testgroup noroot
 [root@localhost ~]# cd /test1
 [root@localhost test1]# ls
 [root@localhost test1]# mkdir testgroupfolder
