@@ -1,0 +1,30 @@
+brazovsky@brazovsky-virtual-machine:~/Desktop/DevOpsPr/NewHomeWork/lesson4$ ssh 192.168.56.4
+The authenticity of host '192.168.56.4 (192.168.56.4)' can't be established.
+ED25519 key fingerprint is SHA256:2Cfn/Kb3BqCo/h2a4Qiu0yjvVwqwBXT4SU6KJjArfTM.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '192.168.56.4' (ED25519) to the list of known hosts.
+Память: 1936.18 Мб
+Средняя загрузка: 0.7
+Адрес IPv4: 10.0.2.15/24
+Адрес IPv6: fe80::a00:27ff:fe39:851e/64
+Адрес IPv6: fe80::a00:27ff:fe10:443f/64
+Адрес IPv4: 192.168.56.4/24
+Адрес IPv6: fe80::a00:27ff:fe7d:fed2/64
+dev:~$ exit
+logout
+Connection to 192.168.56.4 closed.
+brazovsky@brazovsky-virtual-machine:~/Desktop/DevOpsPr/NewHomeWork/lesson4$ ssh 192.168.56.5
+The authenticity of host '192.168.56.5 (192.168.56.5)' can't be established.
+ED25519 key fingerprint is SHA256:KMX8GnoiCkGz0fSBWeZh2QzB0Sot9yAYDctNcQjF3ug.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '192.168.56.5' (ED25519) to the list of known hosts.
+Память: 1938.81 Мб
+Средняя загрузка: 0.9
+Адрес IPv4: 10.0.2.15/24
+Адрес IPv6: fe80::a00:27ff:fe39:851e/64
+Адрес IPv6: fe80::a00:27ff:febe:5acf/64
+Адрес IPv4: 192.168.56.5/24
+Адрес IPv6: fe80::a00:27ff:fe11:cbd4/64
+db:~$ 

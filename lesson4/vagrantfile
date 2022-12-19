@@ -1,0 +1,153 @@
+Vagrant.configure("2") do |config|
+    config.vm.box_check_update = false
+    config.vm.box = "generic/alpine38"
+#    config.vm.provider "virtualbox"
+    config.vm.define "dev" do |dev|
+        dev.vm.network  "public_network", bridge: "ens160"
+        dev.vm.network  "private_network", ip: "192.168.56.4"
+        dev.vm.hostname = "dev"  
+        dev.vm.provider "virtualbox" do |vb|
+            vb.memory = "2048"
+        end
+        dev.vm.provision "file", source: "/home/brazovsky/Desktop/DevOpsPr/NewHomeWork/lesson4/stat.sh", destination: "/tmp/stat.sh"
+        dev.vm.provision "AutoRun", type: "shell", run: "once" do |s|
+            s.inline = $autorun
+            s.privileged = true
+        end
+        dev.vm.provision "User1Create", type: "shell", run: "once" do |s|
+            s.inline = $user1create
+            s.privileged = true
+        end
+        dev.vm.provision "LocalRepo", type: "shell", run: "once" do |s|
+            s.inline = $localrepo
+            s.privileged = true
+        end
+        dev.vm.provision "Immortal", type: "shell", run: "once" do |s|
+            s.inline = $immortal
+            s.privileged = true
+        end
+        dev.vm.provision "OpenNtp", type: "shell", run: "once" do |s|
+            s.inline = $openntp
+            s.privileged = true
+        end
+    end
+    config.vm.define "db" do |db|
+        db.vm.network  "public_network", bridge: "ens160"
+        db.vm.network "private_network", ip: "192.168.56.5"
+        db.vm.hostname = "db"  
+        db.vm.provider "virtualbox" do |vb|
+            vb.memory = "2048"
+        end
+        db.vm.provision "file", source: "/home/brazovsky/Desktop/DevOpsPr/NewHomeWork/lesson4/keycopy.sh", destination: "/tmp/keycopy.sh"
+        db.vm.provision "SshBetween", type: "shell", run: "once" do |s|
+            s.inline = $sshbetween
+            s.privileged = true
+        end
+        db.vm.provision "ChronyTime", type: "shell", run: "once" do |s|
+            s.inline = $chronytime
+            s.privileged = true
+        end
+    end
+
+    $usercreate = <<-SCRIPT
+        apk add pwgen
+        passgen=$(pwgen)
+        echo "Brazovsky: $passgen"
+        adduser brazovsky -D
+        adduser brazovsky wheel
+        echo -e "$passgen\n$passgen\n" | passwd brazovsky
+        mkdir /home/brazovsky/.ssh
+        chmod 700 /home/brazovsky/.ssh
+        touch /home/brazovsky/.ssh/authorized_keys
+        chmod 600 /home/brazovsky/.ssh/authorized_keys
+        cat /tmp/id_ed25519.pub >> /home/brazovsky/.ssh/authorized_keys
+        rm /tmp/id_ed25519.pub
+        chown brazovsky:brazovsky -R /home/brazovsky/.ssh/
+        sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+        apk add openntpd
+        apk add bash-completion
+    SCRIPT
+
+    $user1create = <<-SCRIPT
+        apk add pwgen
+        passgen1=$(pwgen)
+        echo "User1: $passgen1"
+        adduser user1 -D
+        adduser user1 brazovsky
+        echo -e "$passgen1\n$passgen1\n" | passwd user1
+    SCRIPT
+
+    $autorun = <<-SCRIPT
+        chmod ugo+x /tmp/stat.sh
+        cp /tmp/stat.sh /home/brazovsky
+        chown brazovsky:brazovsky /home/brazovsky/stat.sh
+        chmod 755 /home/brazovsky/stat.sh
+        mv /tmp/stat.sh /etc/profile.d
+    SCRIPT
+
+    $sshbetween = <<-SCRIPT
+        echo "y\n" | HOSTNAME=`hostname` ssh-keygen -t rsa -C "$HOSTNAME" -f "$HOME/.ssh/id_rsa" -P ""
+        mv /root/.ssh/id_rsa /home/brazovsky/.ssh
+        chown brazovsky:brazovsky -R /home/brazovsky/.ssh/
+        apk add sshpass
+        sshpass -p 'vagrant' scp -o StrictHostKeyChecking=no /root/.ssh/id_rsa.pub vagrant@192.168.56.4:/tmp/tmp.pub
+        chmod ugo+x /tmp/keycopy.sh
+        sshpass -p 'vagrant' ssh -o StrictHostKeyChecking=no vagrant@192.168.56.4 'bash -s' < /tmp/keycopy.sh
+        sshpass -p 'vagrant' scp -o StrictHostKeyChecking=no vagrant@192.168.56.4:/etc/profile.d/stat.sh /etc/profile.d
+    SCRIPT
+
+    $localrepo = <<-SCRIPT
+        mkdir /repo
+        mkdir /repo/x86_64
+        echo '/repo' >> /etc/apk/repositories
+        wget -P /repo/x86_64 http://dl-cdn.alpinelinux.org/alpine/latest-stable/community/x86_64/procs-0.13.3-r0.apk
+        apk index -o /repo/x86_64/APKINDEX.unsigned.tar.gz /repo/x86_64/*.apk
+        cp /repo/x86_64/APKINDEX.unsigned.tar.gz /repo/x86_64/APKINDEX.tar.gz
+        apk add procs --allow-untrusted
+    SCRIPT
+
+    $immortal = <<-SCRIPT
+        apk add e2fsprogs-extra
+        mkdir /immortal
+        touch /immortal/1.txt
+        chattr +i /immortal/1.txt
+        rm /immortal/1.txt
+        chattr -i /immortal/1.txt
+        rm /immortal/1.txt
+    SCRIPT
+
+    $openntp = <<-SCRIPT
+        ntpctl -s all
+        echo 'servers ru.pool.ntp.org' >> /etc/ntpd.conf
+        rc-service openntpd restart
+        sleep 30s
+        ntpctl -s all 
+    SCRIPT
+
+    $chronytime = <<-SCRIPT
+        apk add chrony
+        rc-update add chronyd default
+        sed 's/pool.ntp.org/ru.pool.ntp.org/g' /etc/chrony/chrony.conf
+        rc-service chronyd start
+        sleep 10s
+        chronyc -n tracking
+        chronyc -n sources
+        chronyc -n sourcestats
+    SCRIPT
+
+    config.vm.provision "file", source: "~/.ssh/id_ed25519.pub", destination: "/tmp/id_ed25519.pub"
+    config.vm.provision "UserAdd", type: "shell", run: "once" do |s|
+        s.inline = $usercreate
+        s.privileged = true
+    end
+
+#    config.vm.provision "file", source: "~/.ssh/id_ed25519.pub", destination: "/home/brazovsky/.ssh"
+    $lvmscript = <<-SCRIPT
+    SCRIPT
+    config.vm.provision "LVM", type: "shell", run: "once" do |s|
+        s.inline = $lvmscript
+        s.privileged = true
+    end
+    
+end
+        

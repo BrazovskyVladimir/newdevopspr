@@ -1,0 +1,35 @@
+==> dev: Running provisioner: LocalRepo (shell)...
+    dev: Running: inline script
+    dev: --2022-12-19 07:56:35--  http://dl-cdn.alpinelinux.org/alpine/latest-stable/community/x86_64/procs-0.13.3-r0.apk
+    dev: Resolving dl-cdn.alpinelinux.org... 151.101.2.133, 151.101.66.133, 151.101.130.133, ...
+    dev: Connecting to dl-cdn.alpinelinux.org|151.101.2.133|:80... connected.
+    dev: HTTP request sent, awaiting response... 200 OK
+    dev: Length: 727095 (710K) [application/octet-stream]
+    dev: Saving to: '/repo/x86_64/procs-0.13.3-r0.apk'
+    dev: 
+    dev:      0K .......... .......... .......... .......... ..........  7% 1.17M 1s
+    dev:     50K .......... .......... .......... .......... .......... 14% 1.33M 0s
+    dev:    100K .......... .......... .......... .......... .......... 21% 4.86M 0s
+    dev:    150K .......... .......... .......... .......... .......... 28% 5.96M 0s
+    dev:    200K .......... .......... .......... .......... .......... 35% 2.21M 0s
+    dev:    250K .......... .......... .......... .......... .......... 42% 7.56M 0s
+    dev:    300K .......... .......... .......... .......... .......... 49% 9.86M 0s
+    dev:    350K .......... .......... .......... .......... .......... 56% 10.7M 0s
+    dev:    400K .......... .......... .......... .......... .......... 63% 11.0M 0s
+    dev:    450K .......... .......... .......... .......... .......... 70% 12.6M 0s
+    dev:    500K .......... .......... .......... .......... .......... 77% 2.81M 0s
+    dev:    550K .......... .......... .......... .......... .......... 84% 15.1M 0s
+    dev:    600K .......... .......... .......... .......... .......... 91% 19.5M 0s
+    dev:    650K .......... .......... .......... .......... .......... 98% 19.0M 0s
+    dev:    700K ..........                                            100% 13.9M=0.2s
+    dev: 
+    dev: 2022-12-19 07:56:35 (4.09 MB/s) - '/repo/x86_64/procs-0.13.3-r0.apk' saved [727095/727095]
+    dev: 
+    dev: WARNING: No provider for dependency 'so:libc.musl-x86_64.so.1'
+    dev: WARNING: No provider for dependency 'so:libgcc_s.so.1'
+    dev: Index has 1 packages (of which 1 are new)
+    dev: WARNING: Total of 2 unsatisfiable package names. Your repository may be broken.
+    dev: (1/2) Installing libgcc (6.4.0-r9)
+    dev: (2/2) Installing procs (0.13.3-r0)
+    dev: Executing busybox-1.28.4-r3.trigger
+    dev: OK: 150 MiB in 88 packages

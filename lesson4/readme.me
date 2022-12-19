@@ -1,0 +1,25 @@
+1. Create 2 VM using Vagrant
+2. Setup SSH server with password and ssh-key's access
+3. Install GIT
+4. Generate SSH-key's and copy keys to VMs. Check connections
+5. Setup connection between VMs
+6. Create BASH-script in /home with information about free memory, current CPU load, IP addres and translate it to Russian.
+7. Make logon autorun for script
+8. Copy script using SCP to second VM
+9. Create user User1 and get him access to /home with script. Get Read and Execute right using CHMOD
+10. Download https://github.com/dalance/procs/releases/download/v0.13.3/procs-0.13.3-1.x86_64.rpm using wget. Create local repository with this rpm and install it.
+11. Make immortal file using CHATTR(1)
+12. Connect bash-completion, check work with Timedatectl
+13. Setup timesync through systemd-timesyncd.service with ru.pool.ntp.org, repeat with NTPD
+
+В одном файле запускаются 2 машины. В них создаётся пользователь brazovsky с генерацией
+пароля и пользователю копируются ssh ключи.
+В первой машине скрипт stat.sh копируется в profile.d для автозапуска при логине и в /home/brazovsky.
+Создается user1 с дополнительной группой brazovsky. Файл stat.sh в /home/brazovsky имеет разрешения для группы brazovsky на чтение и выполнение.
+Добавляется запись в /etc/apk/repositories о локальной папке. В папку качается файл apk и создаются индексы репозитория.
+Устанавливается e2fsprogs-extra для работы с chattr. Файл в папке /immortal делается неудаляемым.
+Настраивается openntpd для синхронизации времени с ru.pool.ntp.org
+
+Во второй машине генерируется пара ключей, после чего публичный ключ копируется на вторую. (По такому же принципу мог сделать ответку с первой на вторую, но сначала забыл
+а потом времени уже не было). Тут же с первой машины на вторую переливается stat.sh в автозапуск.
+Настраивается CHRONY для синхронизации времени. Как использовать timedatectl для Alpine Linux не нашел, но думаю это некритично.

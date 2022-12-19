@@ -1,0 +1,84 @@
+==> OpenNtpd
+
+    dev: Running provisioner: OpenNtp (shell)...
+    dev: Running: inline script
+    dev: 4/4 peers valid, constraint offset 0s, clock unsynced
+    dev: 
+    dev: peer
+    dev:    wt tl st  next  poll          offset       delay      jitter
+    dev: 194.158.196.172 from pool pool.ntp.org
+    dev:     1  9  2   23s   31s         2.590ms     2.565ms     1.839ms
+    dev: 194.158.196.171 from pool pool.ntp.org
+    dev:     1  9  2   30s   33s         4.462ms     2.059ms     0.317ms
+    dev: 82.209.245.153 from pool pool.ntp.org
+    dev:     1  9  3   28s   33s         2.517ms     2.977ms     1.658ms
+    dev: 178.124.134.106 from pool pool.ntp.org
+    dev:     1  9  2   24s   30s         2.677ms     2.638ms     1.830ms
+    dev:  * Stopping NTP Server ... [ ok ]
+    dev:  * Starting NTP Server ... [ ok ]
+    dev: 7/8 peers valid, constraint offset 0s, clock unsynced
+    dev: 
+    dev: peer
+    dev:    wt tl st  next  poll          offset       delay      jitter
+    dev: 84.255.235.43 from pool pool.ntp.org
+    dev:     1  6  2    5s    7s      1352.540ms    50.844ms     0.336ms
+    dev: 79.99.56.72 from pool pool.ntp.org
+    dev:     1  7  2    7s    8s      1353.945ms    76.596ms     0.406ms
+    dev: 185.94.79.79 from pool pool.ntp.org
+    dev:     1  2  -  294s  300s             ---- peer not valid ----
+    dev: 178.124.134.106 from pool pool.ntp.org
+    dev:     1  6  2    2s    9s      1355.124ms     2.163ms     0.189ms
+    dev: 185.68.101.10 from pool ru.pool.ntp.org
+    dev:     1  7  2    6s    8s      1355.611ms    32.252ms     0.313ms
+    dev: 94.141.63.150 from pool ru.pool.ntp.org
+    dev:     1  6  2    0s    6s      1354.465ms    20.375ms     0.173ms
+    dev: 194.190.168.1 from pool ru.pool.ntp.org
+    dev:     1  6  1    3s    5s      1356.605ms    15.594ms     0.338ms
+    dev: 192.36.143.130 from pool ru.pool.ntp.org
+    dev:     1  6  1    7s    9s      1355.993ms    19.731ms     0.263ms
+
+Chrony
+
+==> db: Running provisioner: ChronyTime (shell)...
+    db: Running: inline script
+    db: (1/2) Installing libcap (2.25-r1)
+    db: (2/2) Installing chrony (3.3-r0)
+    db: Executing chrony-3.3-r0.pre-install
+    db: Executing busybox-1.28.4-r3.trigger
+    db: OK: 148 MiB in 89 packages
+    db:  * service chronyd added to runlevel default
+    db: # default config
+    db: 
+    db: pool ru.pool.ntp.org iburst
+    db: initstepslew 10 ru.pool.ntp.org
+    db: driftfile /var/lib/chrony/chrony.drift
+    db: rtcsync
+    db:  * Caching service dependencies ... [ ok ]
+    db:  * Starting chronyd ... [ ok ]
+    db: Reference ID    : B27C866A (178.124.134.106)
+    db: Stratum         : 3
+    db: Ref time (UTC)  : Mon Dec 19 07:59:27 2022
+    db: System time     : 1.365239263 seconds slow of NTP time
+    db: Last offset     : -0.000028370 seconds
+    db: RMS offset      : 0.000028370 seconds
+    db: Frequency       : 0.000 ppm slow
+    db: Residual freq   : -66.242 ppm
+    db: Skew            : 1000000.000 ppm
+    db: Root delay      : 0.032053757 seconds
+    db: Root dispersion : 4.063200951 seconds
+    db: Update interval : 1.1 seconds
+    db: Leap status     : Normal
+    db: 210 Number of sources = 4
+    db: MS Name/IP address         Stratum Poll Reach LastRx Last sample
+    db: ===============================================================================
+    db: ^- 185.94.79.79                  1   6    17     3  +1541us[+1541us] +/-   53ms
+    db: ^- 84.255.235.43                 2   6    17     2  -2348us[-2348us] +/-   53ms
+    db: ^- 79.99.56.72                   2   6    17     3  +1480us[+1480us] +/-   83ms
+    db: ^* 178.124.134.106               2   6    17     3    -24us[  -52us] +/-   42ms
+    db: 210 Number of sources = 4
+    db: Name/IP Address            NP  NR  Span  Frequency  Freq Skew  Offset  Std Dev
+    db: ==============================================================================
+    db: 185.94.79.79                4   4     6  -1097.780   7532.453  -1968us   881us
+    db: 84.255.235.43               4   4     6  -1163.026  21248.668  -5661us  2478us
+    db: 79.99.56.72                 4   3     6   +242.426   6268.699  +1470us   711us
+    db: 178.124.134.106             4   4     6    -66.242   1135.672   -217us    93us
